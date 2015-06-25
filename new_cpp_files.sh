@@ -11,6 +11,7 @@ if [[ ! $1 ]]; then
 fi
 filename="$1"
 header="${filename}.hh"
+implementation="${filename}.cc"
 
 # check if file of same name already exists
 if  [[ -e $header ]]; then
@@ -33,9 +34,20 @@ namespace {
 #endif
 EOF
 
-# open new file in editor
+# create implementation file
+cat << EOF > "$implementation"
+#include "$header"
+
+
+namespace {
+
+
+} // namespace
+EOF
+
+# open new files in editor
 if [[ $EDITOR ]]; then
-  $EDITOR "$header"
+  $EDITOR "$header" "$implementation"
 else
   echo "Created $header; editor not opened b/c \$EDITOR not set"
 fi
