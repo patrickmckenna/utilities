@@ -5,10 +5,7 @@
 set -e
 
 # check that script_name given
-if [[ ! $1 ]]; then
-  echo "No filename given!"
-  exit 1
-fi
+[ $1 ] || echo "No filename given!" && exit 1
 filename="$1"
 header="${filename}.hh"
 implementation="${filename}.cc"
