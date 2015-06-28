@@ -20,10 +20,12 @@ cat << EOF > "$header"
 #define __${filename}_hh__
 
 
-namespace {
+namespace $filename {
+
+using namespace std;
 
 
-} // namespace 
+} // namespace $filename
 
 
 #endif
@@ -34,10 +36,12 @@ cat << EOF > "$implementation"
 #include "$header"
 
 
-namespace {
+namespace $filename {
+
+using namespace std;
 
 
-} // namespace
+} // namespace $filename
 EOF
 
 # open new files in editor
