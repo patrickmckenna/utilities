@@ -18,5 +18,5 @@ read token
 echo "Storing GitHub access token in keychain."
 security add-generic-password -s github_access_token -a $username -w $token
 
-echo "Configuring your .profile to get your access token from the keychain and put it in the \$GITHUB_ACCESS_TOKEN variable"
-echo "export GITHUB_ACCESS_TOKEN=\$(security find-generic-password -s github_access_token -a $username -w)" >> ~/.profile
+echo "Configuring your .bashrc to get your access token from the keychain and put it in the \$GITHUB_ACCESS_TOKEN variable"
+echo "export GITHUB_ACCESS_TOKEN=\$(security find-generic-password -s github_access_token -a $username -w)" >> ~/.bashrc
