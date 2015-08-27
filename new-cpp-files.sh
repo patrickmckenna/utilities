@@ -1,6 +1,6 @@
 #!/bin/bash
 # Usage: new_cpp_files <filename>
-# create new C++ header and implementation files, then open them in your editor
+# create new C++ header, implementation, and build files, then open them in your editor
 
 set -e
 
@@ -9,6 +9,7 @@ set -e
 filename="$1"
 header="${filename}.hh"
 implementation="${filename}.cc"
+build_file="SConstruct"
 
 # check if files of same name already exist
 [ -e $header ] && (echo "File $header already exists!" && exit 1)
@@ -44,9 +45,22 @@ using namespace std;
 } // namespace $filename
 EOF
 
+
+# create build file
+cat << EOF > "build_file"
+cxx_flags = Split('''-std=c++1y
+                     -Wno-c++98-compat
+                     -O0
+                     -g
+                     -fcolor-diagnostics''')
+build_env = Environment(CXXFLAGS = cxx_flags)
+build_env.Program(source = "$implementation")
+EOF
+
+
 # open new files in editor
 if [[ $EDITOR ]]; then
-  $EDITOR "$header" "$implementation"
+  $EDITOR "$header" "$implementation" "build_file"
 else
   echo "Created $header; editor not opened b/c \$EDITOR not set"
 fi
