@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Usage: git_delete_merged_branches.sh
+# Usage: git-delete-merged-branches.sh
 # delete all local branches that have been merged into master
 # does not delete currently checked-out branch or master itself
 
