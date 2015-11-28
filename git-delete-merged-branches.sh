@@ -7,3 +7,5 @@
 set -e
 
 git branch --merged master | grep -v -e "\*" -e "master" | xargs -n 1 git branch -d
+
+exit 0
