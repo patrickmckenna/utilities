@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Usage: git-use-cred-helper
+# Usage: git-use-cred-helper.sh
 # temporarily use git credential helper for a given repo
 
 set -e
