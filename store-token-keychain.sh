@@ -15,8 +15,11 @@ read username
 echo -n "GitHub personal access token: "
 read token
 
-echo "Storing GitHub access token in keychain."
-security add-generic-password -s github_access_token -a $username -w $token
+echo -n "environment variable name: "
+read env_var
 
-echo "Configuring your .bashrc to get your access token from the keychain and put it in the \$GITHUB_ACCESS_TOKEN variable"
-echo "export GITHUB_ACCESS_TOKEN=\$(security find-generic-password -s github_access_token -a $username -w)" >> ~/.bashrc
+echo "Storing GitHub access token in keychain."
+# security add-generic-password -s $env_var -a $username -w $token
+
+echo "Configuring your .bashrc to get your access token from the keychain and put it in the $env_var environment variable"
+# echo "export $env_var=\$(security find-generic-password -s $env_var -a $username -w)" >> ~/.bashrc
