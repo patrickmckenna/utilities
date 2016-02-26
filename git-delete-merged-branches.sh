@@ -1,11 +1,13 @@
 #!/bin/bash
 
 # Usage: git-delete-merged-branches.sh
-# deletes all local branches, except for the default and the currently checked out branch(es), that have been merged into the default branch
+# deletes all local branches, except for the default and currently checked out branch(es), that have been merged into the default branch
 # default here means GitHub default branch, not the target of refs/remotes/origin/HEAD
-# assumes your remote is named "origin"
-# asuumes you have a personal access token available via an environment variable called GITHUB_TOKEN
-# assumes you have jq installed
+# assumes that
+#   - you use GitHub
+#   - have a single remote called "origin"
+#   - have a GitHub personal access token available via an environment variable called GITHUB_TOKEN
+#   - have jq installed
 
 set -e
 
