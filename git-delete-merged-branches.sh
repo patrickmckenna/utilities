@@ -11,7 +11,7 @@
 
 set -e
 
-https_url="https:\/\/:github.com\/"
+https_url="https:\/\/github.com\/"
 ssh_url="git@github.com:"
 remote_name="origin"
 user_repo=$(git remote get-url $remote_name | sed s/$https_url// | sed s/$ssh_url// | sed s/.git//)
