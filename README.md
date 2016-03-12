@@ -1,5 +1,7 @@
 An odds-and-ends collection of some fairly basic Bash scripts.
 
+If you see any problems, please feel free to [open an issue](https://github.com/patrickmckenna/bash-utilities/issues/new) and @mention me!
+
 ---
 
 ##### [`git-delete-merged-branches.sh`](/git-delete-merged-branches.sh)
@@ -14,4 +16,4 @@ The script currently assumes that:
 
 
 ##### [`print-git-branch.sh`](/print-git-branch.sh)
-Prints the currently checked out branch. Useful for, say, [customizing your prompt](https://github.com/patrickmckenna/dotfiles/blob/b8099969c3ec509c4770b6f0224cd044b9b66230/bashrc#L29).
+Prints the currently checked out branch. Useful for, say, [customizing your prompt](https://github.com/patrickmckenna/dotfiles/blob/master/bashrc).
