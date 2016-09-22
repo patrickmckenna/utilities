@@ -11,4 +11,7 @@ brew prune
 
 gem update
 
-pip3 list | xargs -n 1 pip3 install --upgrade
+pip install --upgrade pip setuptools
+pip3 install --upgrade pip setuptools wheel
+pip list --outdated | cut -d \( -f 1 | xargs -n 1 pip install --upgrade
+pip3 list --outdated | cut -d \( -f 1 | xargs -n 1 pip3 install --upgrade
