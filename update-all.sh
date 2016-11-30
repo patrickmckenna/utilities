@@ -4,6 +4,8 @@
 
 set -e
 
+softwareupdate -ia
+
 brew update
 brew upgrade
 brew cleanup
@@ -15,6 +17,9 @@ pip install --upgrade pip setuptools
 pip3 install --upgrade pip setuptools wheel
 pip list --outdated | cut -d \( -f 1 | xargs -n 1 pip install --upgrade
 pip3 list --outdated | cut -d \( -f 1 | xargs -n 1 pip3 install --upgrade
+
+# update Atom packages
+apm upgrade -c false
 
 # keep the latest copy of Python docs available locally
 cd "$HOME/Documents"
