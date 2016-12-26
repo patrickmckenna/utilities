@@ -5,6 +5,7 @@
 set -e
 
 softwareupdate -ia
+mas upgrade
 
 brew update
 brew upgrade
