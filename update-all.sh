@@ -11,8 +11,7 @@ brew update
 brew upgrade
 brew cleanup
 brew prune
-cd "$HOME/projects/dotfiles"
-brew bundle dump --force
+brew bundle dump --force --file="$HOME/projects/dotfiles/Brewfile"
 
 gem update
 
