@@ -24,16 +24,9 @@ pip3 list --outdated | cut -d \( -f 1 | xargs -n 1 pip3 install --upgrade
 # update Atom packages
 apm upgrade -c false
 
-# keep the latest copy of Python, MySQL docs available locally
+# keep the latest copy of MySQL docs available locally
 DOCS_HOME="$HOME/Documents"
 cd "$DOCS_HOME"
-
-PYTHON3_VERSION=$(python3 -V | sed s/Python\ //)
-PYTHON_DOWNLOAD="python-$PYTHON3_VERSION-docs-html.tar.bz2"
-curl -O "https://docs.python.org/3/archives/$PYTHON_DOWNLOAD"
-tar -xf "$PYTHON_DOWNLOAD"
-rm "$PYTHON_DOWNLOAD"
-
 MYSQL_VERSION="5.6"
 MYSQL_DOCS_BASEURL="http://downloads.mysql.com/docs/"
 MYSQL_DOCS="refman-$MYSQL_VERSION-en."
