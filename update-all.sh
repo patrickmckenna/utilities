@@ -17,8 +17,8 @@ gem update
 
 pip install --upgrade pip setuptools
 pip3 install --upgrade pip setuptools wheel
-pip list --outdated | cut -d \( -f 1 | xargs -n 1 pip install --upgrade
-pip3 list --outdated | cut -d \( -f 1 | xargs -n 1 pip3 install --upgrade
+pip list --outdated | cut -f 1 -d ' ' | grep --invert-match --extended-regexp --regexp="Package|-------" | xargs -n 1 pip install --upgrade
+pip3 list --outdated | cut -f 1 -d ' ' | grep --invert-match --extended-regexp --regexp="Package|-------" | xargs -n 1 pip3 install --upgrade
 
 # update Atom packages
 apm upgrade --confirm false
