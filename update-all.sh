@@ -4,7 +4,7 @@
 
 set -e
 
-softwareupdate -ia
+softwareupdate --install --all
 mas upgrade
 
 brew update
@@ -21,4 +21,4 @@ pip list --outdated | cut -d \( -f 1 | xargs -n 1 pip install --upgrade
 pip3 list --outdated | cut -d \( -f 1 | xargs -n 1 pip3 install --upgrade
 
 # update Atom packages
-apm upgrade -c false
+apm upgrade --confirm false
