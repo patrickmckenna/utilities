@@ -4,6 +4,9 @@
 
 set -e
 
+BREWFILE="$HOME/.Brewfile"
+
+
 softwareupdate --install --all
 mas upgrade
 
@@ -11,7 +14,9 @@ brew update
 brew upgrade
 brew cleanup
 brew prune
-brew bundle dump --force --file="$HOME/projects/dotfiles/Brewfile"
+# update apps installed by Homebrew Cask; requires buo/homebrew-cask-upgrade
+brew cu --all --yes --cleanup
+brew bundle dump --force --file="$BREWFILE"
 
 gem update
 rbenv rehash
