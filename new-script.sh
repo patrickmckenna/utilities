@@ -1,7 +1,8 @@
-# use: ./new_script <scriptname>
 #!/bin/bash
-# Usage: new_script <script_name>
-# create new bash script in current directory, then open it in your editor
+#/ Usage: new-script name
+#/
+#/ Create new bash script in current directory, then open it in your editor
+#/
 
 set -e
 
@@ -18,14 +19,29 @@ if  [[ -e $scriptname ]]; then
   exit 1
 fi
 
-# create new script template
+# define template script
 cat << EOF > "$scriptname"
 #!/bin/bash
-
-# Usage: $scriptname <required_arg> [<optional_arg>] [--optional-flag]
-# brief description of the script's purpose
+#/ Usage: $scriptname
+#/
+#/ Description
+#/
+#/ Examples:
+#/
+#/   $scriptname
+#/
 
 set -e
+
+# use ENVIRONMENT if set, otherwise first arg passed, default to development
+: ${ENVIRONMENT:=${1-"development"}}
+
+# if help requested, print the comments at the top of the file
+[ "\$1" = "--help" -o "\$1" = "-h" -o "\$1" = "help" ] && {
+  grep "^#/" <"\$0"| cut -c4-
+  exit 0
+}
+
 EOF
 
 # make new file executable
