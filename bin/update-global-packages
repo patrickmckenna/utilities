@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-#/ Usage: script/update-global-packages
+#/ Usage: update-global-packages
 #/
-#/ Update All The Things, i.e.
+#/ Update All The Things:
 #/   - Homebrew packages (including Cask-installed apps)
 #/   - global Python packages
 #/
