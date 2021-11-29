@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+#/ Usage: script/update-global-packages
+#/
+#/ Update All The Things, i.e.
+#/   - Homebrew packages (including Cask-installed apps)
+#/   - global Python packages
+#/
+
+set -e
+
+# if help requested, print the comments at the top of the file
+if [[ "$1" == "--help" || "$1" == "-h" || "$1" == "help" ]]; then
+  grep "^#/" < "$0" | cut -c4-
+  exit 0
+fi
+
+echo "==> Updating/upgrading Homebrew packages..."
+brew update
+brew upgrade
+
+if [[ -w "${GLOBAL_BREWFILE}" ]]; then
+  echo "==> Updating ${GLOBAL_BREWFILE}..."
+  brew bundle dump --file=/dev/stdout | sort > "${GLOBAL_BREWFILE}"
+else
+  echo >&2 "Global Brewfile not found at ${GLOBAL_BREWFILE}!"
+fi
+
+if [[ -r "${GLOBAL_PYTHON_REQUIREMENTS}" ]]; then
+  echo "==> Updating global Python packages..."
+  pip install --upgrade --requirement "${GLOBAL_PYTHON_REQUIREMENTS}"
+else
+  echo >&2 "Global Python requirements not found at ${GLOBAL_PYTHON_REQUIREMENTS}!"
+fi
