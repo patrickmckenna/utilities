@@ -10,10 +10,15 @@
 set -e
 
 # if help requested, or no ENV_VAR_NAME given, print the comments at the top of the file
-if [[ "$1" == "--help" || "$1" == "-h" || "$1" == "help" || -z "$1" ]]; then
+[[ "$1" == "--help" || "$1" == "-h" || "$1" == "help" || -z "$1" ]] && {
   grep "^#/" < "$0" | cut -c4-
   exit 0
-fi
+}
+
+[[ $(uname -s) != "darwin" ]] && {
+  echo >&2 "Works for MacOS only :("
+  exit 1
+}
 
 printenv "$1" >/dev/null && {
   echo >&2 "An environment variable named $1 is already defined!"
@@ -28,4 +33,4 @@ security find-generic-password -s "$1" -a "$(whoami)" >/dev/null 2>&1 && {
 security add-generic-password -s "$1" -a "$(whoami)" -w
 
 echo "Appending ~/.bashrc to expose the secret as the environment variable $1"
-echo "export $env_var=\$(security find-generic-password -s $1 -a \$(whoami) -w)" >> ~/.bashrc
+echo "export $env_var=\$(security find-generic-password -s $1 -a \$(whoami) -w)" >> "${HOME}/.bashrc"
