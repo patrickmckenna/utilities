@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+#/ Usage: new-bash-script name
+#/
+#/ Create new bash script in current directory, then open it in your editor
+#/
+
+set -e
+
+# if help requested, or no name given, print the comments at the top of the file
+[[ "$1" == "--help" || "$1" == "-h" || "$1" == "help" || -z "$1" ]] && {
+  grep "^#/" < "$0" | cut -c4-
+  exit 0
+}
+
+[[ -e "$1" ]] && {
+  echo >&2 "File $1 already exists!"
+  exit 1
+}
+
+cd "$(dirname "$0")/.."
+
+# TODO: fix
+# # cat "template.sh" | sed -e "s/script-name/$1" > "$1"
+# chmod +x "$1"
+
+# # open new file in editor, if possible
+# hash "${EDITOR}" 2>/dev/null && command "${EDITOR} "$1
