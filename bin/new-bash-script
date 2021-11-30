@@ -19,9 +19,7 @@ set -e
 
 cd "$(dirname "$0")/.."
 
-# TODO: fix
-# # cat "template.sh" | sed -e "s/script-name/$1" > "$1"
-# chmod +x "$1"
+cat "template.sh" | sed -e "s/script-name/$1/" > "$1"
+chmod +x "$1"
 
-# # open new file in editor, if possible
-# hash "${EDITOR}" 2>/dev/null && command "${EDITOR} "$1
+hash "${EDITOR}" 2>/dev/null && command "${EDITOR}" "$1"
