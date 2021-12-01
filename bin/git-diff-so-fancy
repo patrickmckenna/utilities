@@ -22,7 +22,7 @@ git rev-parse --git-dir >/dev/null 2>&1 || {
   exit 1
 }
 
-git diff --color $@ \
+git diff --color "$@" \
   | diff-so-fancy \
   | less --tabs=4 --RAW-CONTROL-CHARS --quit-if-one-screen --no-init
  

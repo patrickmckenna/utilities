@@ -33,4 +33,5 @@ security find-generic-password -s "$1" -a "$(whoami)" >/dev/null 2>&1 && {
 security add-generic-password -s "$1" -a "$(whoami)" -w
 
 echo "Appending ~/.bashrc to expose the secret as the environment variable $1"
+# shellcheck disable=SC2154
 echo "export $env_var=\$(security find-generic-password -s $1 -a \$(whoami) -w)" >> "${HOME}/.bashrc"
