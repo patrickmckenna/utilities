@@ -7,12 +7,11 @@
 
 set -e
 
-# if help requested, or no name given, print the comments at the top of the file
-[[ "$1" == "--help" || "$1" == "-h" || "$1" == "help" || -z "$1" ]] && {
+# if help requested, print the comments at the top of the file
+[[ "$1" =~ -h|(--)?help || -z "$1" ]] && {
   grep "^#/" < "$0" | cut -c4-
   exit 0
 }
-
 
 target_dir="$(dirname "$1")"
 target_name="$(basename "$1")"
