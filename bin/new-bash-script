@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-#/ Usage: new-bash-script name
+#/ Usage: new-bash-script filename 
 #/
-#/ Create new bash script in current directory, then open it in your editor
+#/ Create new bash script, then open it in your editor. filename can be a name
+#/ only, have a directory prefixed.
 #/
 
 set -e
@@ -12,14 +13,23 @@ set -e
   exit 0
 }
 
-[[ -e "$1" ]] && {
-  echo >&2 "File $1 already exists!"
+
+target_dir="$(dirname "$1")"
+target_name="$(basename "$1")"
+target="${target_dir}/${target_name}"
+
+[[ -d "${target_dir}" ]] || {
+  echo >&2 "${target_dir} is not a valid directory!"
   exit 1
 }
 
-cd "$(dirname "$0")/.."
+[[ -e "${target}" ]] && {
+  echo >&2 "File ${target} already exists!"
+  exit 1
+}
 
-cat "template.sh" | sed -e "s/script-name/$1/" > "$1"
-chmod +x "$1"
+source="$(dirname "$0")/../template.sh"
+cat "${source}" | sed -e "s/script-name/${target_name}/" > "${target}"
+chmod +x "${target}"
 
-hash "${EDITOR}" 2>/dev/null && command "${EDITOR}" "$1"
+hash "${EDITOR}" 2>/dev/null && command "${EDITOR}" "${target}"
