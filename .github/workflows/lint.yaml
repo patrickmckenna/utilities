@@ -10,5 +10,8 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+    - name: Bootstrap
+      run: script/bootstrap
+
     - name: Run linter
       run: script/lint
