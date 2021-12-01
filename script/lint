@@ -19,5 +19,5 @@ hash shellcheck 2>/dev/null || {
 
 cd "$(dirname "$0")/.."
 
-echo "==> Running shellcheck..."
+echo "==> Running shellcheck ($(shellcheck --version | grep "version:"))..."
 shellcheck bin/* script/*

@@ -11,7 +11,9 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Bootstrap
-      run: script/bootstrap
+      run: |
+        script/bootstrap
+        echo "==> Bootstrapping complete"
 
     - name: Run linter
       run: script/lint
