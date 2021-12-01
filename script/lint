@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#/ Usage: lint
+#/
+#/ Run shellcheck.
+#/
+
+set -e
+
+# if help requested, print the comments at the top of the file
+[[ "$1" =~ -h|(--)?help ]] && {
+  grep "^#/" < "$0" | cut -c4-
+  exit 0
+}
+
+hash shellcheck 2>/dev/null || { 
+  echo >&2 "Requires shellcheck be installed!"
+  exit 1
+}
+
+cd "$(dirname "$0")/.."
+
+echo "==> Running shellcheck..."
+shellcheck bin/* script/*
