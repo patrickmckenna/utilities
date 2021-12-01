@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#/ Usage: script/bootstrap
+#/
+#/ Resolve all dependencies.
+#/
+
+set -e
+
+# if help requested, print the comments at the top of the file
+[[ "$1" =~ -h|(--)?help ]] && {
+  grep "^#/" < "$0" | cut -c4-
+  exit 0
+}
+
+cd "$(dirname "$0")/.."
+
+echo "==> Resolving dependencies..."
+
+hash brew 2>/dev/null && {
+  brew bundle check >/dev/null 2>&1  || {
+    echo "==> Installing Homebrew dependencies..."
+    brew bundle --no-lock
+  }
+}
