@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+#/ Usage: git-diff-so-fancy [<path>...]
+#/
+#/ Pretty-printed diffs.
+#/
+
+set -e
+
+# if help requested, print the comments at the top of the file
+if [[ "$1" == "--help" || "$1" == "-h" || "$1" == "help" ]]; then
+  grep "^#/" < "$0" | cut -c4-
+  exit 0
+fi
+
+hash diff-so-fancy 2>/dev/null || { 
+  echo >&2 "Requires diff-so-fancy be installed!"
+  exit 1
+}
+
+git rev-parse --git-dir >/dev/null 2>&1 || {
+  echo "Must run command in a valid git repository!"
+  exit 1
+}
+
+git diff --color $@ \
+  | diff-so-fancy \
+  | less --tabs=4 --RAW-CONTROL-CHARS --quit-if-one-screen --no-init
+ 

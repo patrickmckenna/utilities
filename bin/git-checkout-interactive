@@ -17,13 +17,10 @@ hash fzf 2>/dev/null || {
   exit 1
 }
 
-git rev-parse --git-dir 2>/dev/null || {
+git rev-parse --git-dir >/dev/null 2>&1 || {
   echo "Must run command in a valid git repository!"
   exit 1
 }
-
-# . "$(git --exec-path)/git-sh-setup"
-# SUBDIRECTORY_OK=1 git_dir_init
 
 case "$1" in
   -a)

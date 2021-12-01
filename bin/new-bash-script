@@ -24,7 +24,7 @@ target="${target_dir}/${target_name}"
 }
 
 [[ -e "${target}" ]] && {
-  echo >&2 "File ${target} already exists!"
+  echo >&2 "${target} already exists!"
   exit 1
 }
 
