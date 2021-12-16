@@ -2,7 +2,9 @@
 #/ Usage: update-global-packages
 #/
 #/ Update All The Things:
-#/   - Homebrew packages (including Cask-installed apps)
+#/   - MacOS
+#/   - App Store installed apps
+#/   - Homebrew packages (formulas and casks)
 #/   - global Python packages
 #/
 
@@ -14,20 +16,21 @@ set -e
   exit 0
 }
 
-echo "==> Updating/upgrading Homebrew packages..."
+
+echo "==> Updating MacOS and App Store-installed apps as needed..."
+softwareupdate --install --all --force --agree-to-license
+
+
+echo "==> Updating Homebrew, and upgrading formulas and casks as needed..."
 brew update
-brew upgrade
+brew upgrade --display-times --require-sha
 
-if [[ -w "${GLOBAL_BREWFILE}" ]]; then
-  echo "==> Updating ${GLOBAL_BREWFILE}..."
-  brew bundle dump --file=/dev/stdout | sort > "${GLOBAL_BREWFILE}"
-else
-  echo >&2 "Global Brewfile not found at ${GLOBAL_BREWFILE}!"
-fi
 
-if [[ -r "${GLOBAL_PYTHON_REQUIREMENTS}" ]]; then
-  echo "==> Updating global Python packages..."
-  pip install --upgrade --requirement "${GLOBAL_PYTHON_REQUIREMENTS}"
+python_packages="${GLOBAL_CONFIGS_DIR}/requirements.txt"
+if [[ -r "${python_packages}" ]]; then
+  echo "==> Updating global Python packages (if needed)..."
+  pip install --upgrade --progress-bar ascii --requirement "${python_packages}"
 else
-  echo >&2 "Global Python requirements not found at ${GLOBAL_PYTHON_REQUIREMENTS}!"
+  echo "Cannot find global Python requirements file!" >&2
+  exit 1 
 fi
