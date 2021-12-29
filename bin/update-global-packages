@@ -11,7 +11,7 @@
 set -e
 
 # if help requested, print the comments at the top of the file
-[[ "$1" =~ -h|(--)?help ]] && {
+[[ "$1" == "-h" || "$1" =~ "(--)?help" ]] && {
   grep "^#/" < "$0" | cut -c4-
   exit 0
 }
@@ -26,11 +26,5 @@ brew update
 brew upgrade --display-times --require-sha
 
 
-python_packages="${GLOBAL_CONFIGS_DIR}/requirements.txt"
-if [[ -r "${python_packages}" ]]; then
-  echo "==> Updating global Python packages (if needed)..."
-  pip install --upgrade --progress-bar ascii --requirement "${python_packages}"
-else
-  echo "Cannot find global Python requirements file!" >&2
-  exit 1 
-fi
+echo "==> Updating pipx packages..."
+pipx upgrade-all
