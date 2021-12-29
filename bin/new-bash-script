@@ -1,14 +1,13 @@
 #!/usr/bin/env bash
-#/ Usage: new-bash-script filename 
+#/ Usage: new-bash-script PATH
 #/
-#/ Create new bash script, then open it in your editor. filename can be a name
-#/ only, have a directory prefixed.
+#/ Create new bash script at PATH, then open it in your editor.
 #/
 
 set -e
 
 # if help requested, print the comments at the top of the file
-[[ "$1" =~ -h|(--)?help || -z "$1" ]] && {
+[[ "$1" == "-h" || "$1" =~ "(--)?help" || -z "$1" ]] && {
   grep "^#/" < "$0" | cut -c4-
   exit 0
 }
@@ -28,7 +27,7 @@ target="${target_dir}/${target_name}"
 }
 
 source="$(dirname "$0")/../template.sh"
-sed -e "s/script-name/${target_name}/" "${source}" > "${target}"
+sed -e "s/script-name/${target}/" "${source}" > "${target}"
 chmod +x "${target}"
 
 hash "${EDITOR}" 2>/dev/null && command "${EDITOR}" "${target}"
