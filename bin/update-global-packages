@@ -26,5 +26,10 @@ brew update
 brew upgrade --display-times --require-sha
 
 
-echo "==> Updating pipx packages..."
-pipx upgrade-all
+if [[ -r "${GLOBAL_CONFIGS_DIR}/requirements.txt" ]]; then
+  echo "==> Upgrading global Python packages"
+  pip install --upgrade --requirement "${GLOBAL_CONFIGS_DIR}/requirements.txt"
+else
+  echo >&2 "==> Cannot find canonical list of global Python packages"
+  exit 1
+fi
