@@ -17,10 +17,6 @@ set -e
 }
 
 
-echo "==> Updating MacOS and App Store-installed apps as needed..."
-softwareupdate --install --all --force --agree-to-license
-
-
 echo "==> Updating Homebrew, and upgrading formulas and casks as needed..."
 brew update
 brew upgrade --display-times --require-sha
